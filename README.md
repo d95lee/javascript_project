@@ -12,7 +12,7 @@ Users will be able to:
 
 
 ### Wireframes
-![wireframe](![wireframe](https://github.com/d95lee/javascript_project/assets/144676584/747f61cb-ebd2-475e-9242-e4d2c62c1029)
+![wireframe](https://github.com/d95lee/javascript_project/assets/144676584/747f61cb-ebd2-475e-9242-e4d2c62c1029)
 
 
 - The entire map is displayed on the screen 
