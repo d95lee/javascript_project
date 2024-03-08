@@ -3,15 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  
-    "browserslist": [
-      "defaults"
-    ],
+  "browserslist": [
+    "defaults"
+  ],
   "scripts": {
     "watch": "webpack --watch --mode=development",
     "build": "webpack --mode=production"
-    },
-
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -25,7 +23,11 @@
     "regenerator-runtime": "^0.14.1",
     "sass": "^1.71.1",
     "sass-loader": "^14.1.1",
+    "three": "^0.162.0",
     "webpack": "^5.90.3",
     "webpack-cli": "^5.1.4"
+  },
+  "devDependencies": {
+    "vite": "^5.1.5"
   }
 }
