@@ -1,5 +1,6 @@
 const p = canvas.getContext('2d');
 const r = canvas.getContext('2d');
+const m = canvas.getContext('2d');
 
 class Player {
     constructor(x, y, radius, color) {
@@ -114,6 +115,27 @@ const player2 = new Player2(200, 200, 50, 50, 'grey')
 
 const projectiles = []
 const enemies = []
+let score = 0
+let playerHealth = 100
+
+
+// Creates the main menu screen
+function mainMenu() {
+    // p.clearRect(0, 0, canvas.width, canvas.height);
+
+    m.beginPath();
+    m.rect(
+        canvas.width/3,
+        canvas.height/3,
+        300,
+        300
+    )
+    m.fillStyle = "green"
+    m.fill()
+    m.closePath();
+    
+}
+
 
 function spawnEnemies() {
     setInterval(() => {
@@ -131,28 +153,79 @@ function spawnEnemies() {
 
 
 function animate() {
-    requestAnimationFrame(animate)
+    mainMenu()
+    const animateAll = requestAnimationFrame(animate)
     r.clearRect(0, 0, canvas.width, canvas.height)
     player2.x += player2.vx;
     player2.y += player2.vy;
-    // projectiles.x += projectiles.vx; // attempt to get bullets to originate from p2
-    // projectiles.y += projectiles.vy;
     player.draw()
     player2.draw() //Have to call the rectangle in the animation function to be drawn
-    projectiles.forEach((projectile) => {
+    
+    projectiles.forEach((projectile, idx) => {
     projectile.update()
-    })
+    
+     // Removing projectiles 
+     if (projectile.x - projectile.radius < 0 || 
+        projectile.x - projectile.radius > canvas.width ||
+        projectile.y + projectile.radius < 0 ||
+        projectile.y - projectile.radius > canvas.height) {
+        setTimeout(() => {
+            projectiles.splice(idx, 1)
+        }, 0)
+    } 
 
-    enemies.forEach((enemy) => {
-        enemy.update()
     })
+       
+
+    enemies.forEach((enemy, idx) => {
+        enemy.update()
+
+        projectiles.forEach((projectile, pidx) => {
+            const distance = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y)
+        
+        if (distance - enemy.radius - projectile.radius < 1) {
+            score += 10
+            scoreboard.innerHTML = score
+            
+            enemies.splice(idx, 1)
+            projectiles.splice(pidx, 1)
+        }
+        })
+
+        // Subtracts player's health after collision with circles
+        const distance = Math.hypot(player2.x - enemy.x, player2.y - enemy.y) // Calculates the distance between player and enemy using the pythagorean theorem
+        if (distance - enemy.radius - (player2.width && player2.height) < 1) {
+            playerHealth -= 10
+            health.innerHTML = playerHealth
+        }
+    })
+    // Function within a function
+    // Functions freezes the entire game once hp reaches 0
+
+    function gameOver() {
+        cancelAnimationFrame(animateAll)
+        const endScreen = document.querySelector('#gameOver').style.display
+        // endScreen.style.display 
+        console.log("Game Over")
+        
+    }
+    if (playerHealth === 0) {
+        gameOver()
+    }
 }
 
+// Moved this function to inside the enemies for loop 
+// function hitByEnemy() {
+//     if (player2.x + player2.width, player2.y + player2.height === ) {
+        
+//     }
+// }
+
 addEventListener('click', (e) => {
-    const angle = Math.atan2(e.clientY - canvas.height/2, e.clientX - canvas.width/2)
+    const angle = Math.atan2(e.clientY - (player2.y + player2.height/2) - 75, e.clientX - (player2.x + player2.width/2)- 30)   // - 75 for y    - 30 for x seem to be the best for accuracy
     const velocity = {
-        x: Math.cos(angle) * 5,
-        y: Math.sin(angle) * 5
+        x: Math.cos(angle) * 10,
+        y: Math.sin(angle) * 10
     }
     
     projectiles.push(new Projectile(
@@ -160,7 +233,7 @@ addEventListener('click', (e) => {
     )
 })
 
-
+mainMenu();
 animate();
 spawnEnemies();
-// rectangleUpdate();
+

@@ -11,12 +11,38 @@
   </head>
 
   <body>
+    <div style="
+        color: black; 
+        padding: 2px;
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 10px;
+        margin-top: 10px;
+        font-size: 30px;">
+    <ul>
+       <li><span id="scoreboard">Score: 0</span></li>
+       <li><span id="health">HP: 100</span></li>
+    </ul>
+    </div>
+
+    <!-- <div id="gameOver" style="
+        position: absolute;
+        background-color: burlywood; 
+        width: auto;
+        padding: 20px;
+        top: 50%;
+        right: 50%;
+        display: none">
+       <h1>Game Over</h1> 
+    </div> -->
         <canvas id="canvas"></canvas>
         <script src="./src/canvas.js"></script>
         <script src="./src/movement.js"></script>
         <script src="./src/main.js"></script>
         <script src="./src/circle.js"></script>
-        <script src="./src/index.js"></script>
+        <!-- <script src="./src/index.js"></script> -->
+        <script src="./src/scoreboard.js"></script>
+        <script src="./src/index2.js"></script>
   </body>
 
 </html>
