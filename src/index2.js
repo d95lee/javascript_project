@@ -1,4 +1,5 @@
 const c = canvas.getContext('2d')
+const img = document.querySelector('#myImage')
 
 class Player {
     constructor(x, y, radius, color) {
@@ -97,13 +98,20 @@ class Projectile {
         c.stroke()
         c.closePath()
     }
+
+    update() {
+        this.draw()
+        this.x = this.x + this.velocity.x
+        this.y = this.y + this.velocity.y
+    }
 }
 
 const player = new Player(300, 100, 30, "grey")
-const bullet = new Projectile(400, 400, 5, "red")
 
 const enemies = []
 const projectiles = []
+let score = 0
+let playerHealth = 100
 
 function animate() {
     requestAnimationFrame(animate)
@@ -112,37 +120,74 @@ function animate() {
     player.y += player.vy
     player.draw() // player is able to move
     // enemy.draw() // enemy is refreshed over and over
-    bullet.draw()
-    projectile()
+    // projectile()
     // updateEnemyPos()
     eachEnemy()
+    c.drawImage(img, 300, 300, img.width/50, img.height/50)
     
+    projectiles.forEach((projectile, idx) => {
+    projectile.update()
+        console.log(projectile)
+    // Removes the projectiles
+    if (projectile.x - projectile.radius < 0 || 
+        projectile.x - projectile.radius > canvas.width ||
+        projectile.y + projectile.radius < 0 ||
+        projectile.y - projectile.radius > canvas.height) {
+        setTimeout(() => {
+            projectiles.splice(idx, 1)
+        }, 0)
+        }
+    })
 }
 
+function eachProjectiles() {
+
+}
+
+
 function eachEnemy() {
-    enemies.forEach((e) => {
-        e.draw()
-        e.updateEnemyPos()
+    enemies.forEach((enemy, idx) => {
+        // enemy.draw()
+        enemy.updateEnemyPos()
+
+        projectiles.forEach((projectile, pidx) => {
+            const distance = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y) // measures the distance from projectile to the enemy
+            console.log(distance)
+
+        if (distance - enemy.radius - projectile.radius < 1) { // we need to check the enemy radius and the projectile radius
+            enemies.splice(idx, 1) // removing a single enemy at the specific index
+            projectiles.splice(pidx, 1) // removing a single projectile at the specific index
+        
+            score += 10 // adds 10 to the score
+            scoreboard.innerHTML = score // shows player score on the screen
+        }
+        })
+
+            const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y)
+        if (distance - enemy.radius - (player.radius) < 1 ) {
+            playerHealth -= 0.2
+            health.innerHTML = playerHealth
+        }
     })
 }
 
 
-function projectile() {
-    let xdir = bullet.x 
-    let ydir = bullet.y
+// function projectile() {
+//     let xdir = bullet.x 
+//     let ydir = bullet.y
 
-    if (xdir > 0) {
-        xdir += 3
-    } else {
-        xdir -= 3
-    }
+//     if (xdir > 0) {
+//         xdir += 3
+//     } else {
+//         xdir -= 3
+//     }
 
-    if (ydir > 0) {
-        ydir += 3
-    } else {
-        ydir -= 3
-    }
-}
+//     if (ydir > 0) {
+//         ydir += 3
+//     } else {
+//         ydir -= 3
+//     }
+// }
 
 function createEnemies() {
     for (let i = 0; i < 3; i++) {
@@ -161,9 +206,17 @@ function createEnemies() {
 }
 
 addEventListener('click', (e) => {
-    const angle = Math.atan2(e.clientY - (player2.y + player2.height/2) - 75, e.clientX - (player2.x + player2.width/2)- 30)   // - 75 for y    - 30 for x seems to be the best for accuracy
+    const angle = Math.atan2(e.clientY - (player.y + player.radius), e.clientX - (player.x + player.radius))   // - 75 for y    - 30 for x seems to be the best for accuracy
+    const velocity = {
+        x: Math.cos(angle) * 10,
+        y: Math.sin(angle) * 10
+    }
+    
+    projectiles.push(new Projectile(player.x - player.radius, player.y - player.radius, 5, 'red', velocity))
 })
+
+
+
 
 animate();
 createEnemies();
-// animateSpawnEnemies()
