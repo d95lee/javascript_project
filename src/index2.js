@@ -1,7 +1,11 @@
 const c = canvas.getContext('2d')
-// const playerShoot = document.querySelector('#playerShoot')
+const playerShoot = document.querySelector('#playerShoot')
+const scoreboard = document.querySelector("#scoreboard")
 const gameOverScreen = document.querySelector('#gameOver')
 const scoreEle = document.querySelector('#scoreEle')
+const startScreen = document.querySelector('#startScreen')
+const scoreboardContainer = document.querySelector('.scoreboard-container')
+const restartButton = document.querySelector('#restart')
 
 c.imageSmoothingEnabled = true
 c.imageSmoothingQuality = 'high'
@@ -15,7 +19,7 @@ class Player {
         this.vx = 0 //velocity in the x direction
         this.vy = 0 //velocity in the y direction
 
-        document.addEventListener("keydown", this.handleKeyDown.bind(this));
+        document.addEventListener("keydown", this.handleKeyDown.bind(this)); // ensures the context of this remains the same
         document.addEventListener("keyup", this.handleKeyUp.bind(this));
     }
 
@@ -62,27 +66,63 @@ class Enemy {
         c.closePath()
     }
 
-    updateEnemyPos() {
+    updateEnemyPos() { // note enemies still vibrate back and forth...
         let xDiff = player.x - this.x // player position - enemy position 
-        let yDiff = player.y - this.y 
+        let yDiff = player.y - this.y // negative about this method is the vibrations caused by the sudden shift in the x and y axis
     
-        this.draw()
+        const angle = Math.atan2(player.y - this.y, player.x - this.x) // angular distance from player to the enemy
 
-        if (xDiff > 0) {
-            this.x += 0.2 // if the difference in xposition is > 0 then chase player
+        this.x += Math.cos(angle)
+        this.y += Math.sin(angle)
+
+        this.draw()
+        // red, blue, black, green
+        // changes/increases direction in the x axis
+        if (xDiff > 0) { // if the difference in xposition is > 0 then chase player x, y, and diagonally
+            if (this.color === 'red') {
+                this.x += 0.2
+            } else if (this.color === 'blue') {
+                this.x += 1
+            } else if (this.color === 'black') {
+                this.x += 2
+            } else if (this.color === 'green') {
+                this.x += 3
+            } 
         } else {
-            this.x -= 0.2
+            if (xDiff < 0 && this.color === 'red') {
+                this.x -= 0.2 
+            } else if (this.color === 'blue') {
+                this.x -= 1
+            } else if (this.color === 'black') {
+                this.x -= 2
+            } else if (this.color === 'green') {
+                this.x -=3
+            }    
         }
-    
+            // changes/increases direction in the y axis
         if (yDiff > 0) {
-            this.y += 0.2
+            if (this.color === 'red') {
+                this.y += 0.2 // if the difference in yposition is > 0 then chase player
+            } else if (this.color === 'blue') {
+                this.y += 1
+            } else if (this.color === 'black') {
+                this.y += 2
+            } else if (this.color === 'green') {
+                this.y += 3
+            } 
         } else {
-            this.y -= 0.2
+                if (yDiff < 0 && this.color === 'red') {
+                    this.y -= 0.2 
+                } else if (this.color === 'blue') {
+                    this.y -= 1
+                } else if (this.color === 'black') {
+                    this.y -= 2
+                } else if (this.color === 'green') {
+                    this.y -=3
+                }
+            }
         }
     }
-
-
-}
 
 class Projectile {
     constructor(x, y, radius, color, velocity) {
@@ -113,10 +153,11 @@ class Projectile {
 
 const player = new Player(300, 100, 30, "grey")
 
-const enemies = []
-const projectiles = []
+let enemies = []
+let projectiles = []
 let score = 0
 let playerHealth = 100
+
 
 function animate() {
     const animateAll = requestAnimationFrame(animate)
@@ -129,11 +170,10 @@ function animate() {
     // updateEnemyPos()
     eachEnemy()
     if (enemies.length === 0) {
-        console.log("hit 0")
         createEnemies()
     }
   
-    // c.drawImage(playerShoot, 100, 100, img.width/50, img.height/50)
+    c.drawImage(playerShoot, 100, 100, 100, playerShoot.height/100)
     // playerAnimation()
     
     projectiles.forEach((projectile, idx) => {
@@ -159,8 +199,13 @@ function animate() {
         console.log("Game Over")
     }
 
-    if (playerHealth === 0) {
+    if (playerHealth <= 0) {
         gameOver()
+        scoreboardContainer.style.display = 'none'
+    }
+
+    if (startScreen.style.display == 'block') {
+        cancelAnimationFrame(animateAll)
     }
 }
 
@@ -176,15 +221,25 @@ function eachEnemy() {
         if (distance - enemy.radius - projectile.radius < 1) { // we need to check the enemy radius and the projectile radius
             enemies.splice(idx, 1) // removing a single enemy at the specific index
             projectiles.splice(pidx, 1) // removing a single projectile at the specific index
-        
-            score += 10 // adds 10 to the score
-            scoreboard.innerHTML = `Score: ${score}` // shows player score on the screen
+            if (enemy.color === 'red') {
+                score += 10 // adds 10 to the score
+                scoreboard.innerHTML = `Score: ${score}` // shows player score on the screen
+            } else if (enemy.color === 'blue') {
+                score += 20
+                scoreboard.innerHTML = `Score: ${score}`
+            } else if (enemy.color === 'black') {
+                score += 30 
+                scoreboard.innerHTML = `Score: ${score}`
+            } else if (enemy.color === 'green') {
+                score += 50
+                scoreboard.innerHTML = `Score: ${score}`
+            }
         }
-        })
+        })// red, blue, black, green
 
             const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y)
         if (distance - enemy.radius - (player.radius) < 1 ) { //distance between player and enemy
-            playerHealth -= 5 // subtracts 0.2 to playerhealth for every millisecond of contact
+            playerHealth -= 1 // subtracts 0.2 to playerhealth for every millisecond of contact
             health.innerHTML = `Health: ${playerHealth}` // displays changing health
         }
     })
@@ -200,28 +255,51 @@ function createEnemies() {
 
     for (let i = 0; i < maxEnemy; i++) {
     const randomColor = ['red', 'blue', 'green', 'black']
-    const randomValue = randomColor[Math.floor(randomColor.length * Math.random())];
+    const randomValue = randomColor[Math.floor(randomColor.length * Math.random())]; // randomly selects color in array
 
-    let x = Math.floor(Math.random() * canvas.width)
-    let y = Math.floor(Math.random() * canvas.height)
-    let velocity = { 
-        x: 1,
-        y: 1
-    }
+    let x = Math.floor(Math.random() * canvas.width) // random x variable
+    let y = Math.floor(Math.random() * canvas.height) // random y variable
 
-    enemies.push(new Enemy(x, y, 20, randomValue, velocity)) // pushing newly created enemy into array
+    enemies.push(new Enemy(x, y, 20, randomValue, this.velocity)) // pushing newly created enemy into array
     }
 }
 
+function newGame() { // reseting all arrays and variables
+    projectiles = []
+    enemies = []
+    score = 0
+    playerHealth = 100
+
+    let healthUI = document.querySelector('#health')
+    healthUI.innerHTML = `Health: ${playerHealth}`
+
+    let scoreUI = document.querySelector('#scoreboard')
+    scoreUI.innerHTML = `Score: ${score}` 
+}
 
 addEventListener('click', (e) => {
-    const angle = Math.atan2(e.clientY - (player.y + player.radius), e.clientX - (player.x + player.radius))   // - 75 for y    - 30 for x seems to be the best for accuracy
+    const angle = Math.atan2(e.clientY - player.y, e.clientX - player.x) // calculates angular distance from mouse click to player
     const velocity = {
-        x: Math.cos(angle) * 10,
+        x: Math.cos(angle) * 10, // increasing x velocity by 10
         y: Math.sin(angle) * 10
     }
-    
-    projectiles.push(new Projectile(player.x - player.radius, player.y - player.radius, 5, 'red', velocity))
+
+    projectiles.push(new Projectile(player.x, player.y, 5, 'red', velocity))
+})
+
+restartButton.addEventListener('click', (e) => {
+    newGame() // resets everything
+    animate() // reanimates the game
+    gameOverScreen.style.display = 'none' // hides the gameover display
+    scoreboardContainer.style.display = 'block'
+})
+
+const startButton = document.querySelector('#start')
+startButton.addEventListener('click', (e) => {
+    newGame()
+    animate()
+    startScreen.style.display = 'none'
+    scoreboardContainer.style.display = 'block'
 })
 
 // SPRITE ANIMATION 
@@ -251,5 +329,5 @@ addEventListener('click', (e) => {
 // }, 100)
 
 
-animate();
+// animate(); // commenting this out makes it so that no players or enemies spawn at the start of the game
 createEnemies();

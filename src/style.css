@@ -1,15 +1,39 @@
+body {
+    background-image: url(../city-element-seamless-pattern/10118.jpg);
+    margin: 0;
+}
+
 .scoreboard-container {
-    color: black; 
+    z-index: -1; /*puts element to the back*/
+    color: black;
+    font: bolder; 
     padding: 2px;
     display: flex;
     justify-content: flex-end;
+    right: 0%;
     margin-right: 10px;
     margin-top: 10px;
-    font-size: 30px;
+    font-size: 40px;
+    position: absolute; /* takes away the bar at the top and fixed aim issues*/
+    display: none;
 }
 
 .scoreboard-container ul {
     list-style-type: none;
+}
+
+#startScreen {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content:space-around;
+    margin: 300px;
+    padding: 20px;
+    top: 50%;
+    right: 50%;
+    text-align: center;
+    border-radius: 5px;
+    display: block;
 }
 
 #gameOver {
@@ -24,4 +48,16 @@
     text-align: center;
     border-radius: 5px;
     display: none;
+}
+
+#restart {
+    font: bolder;
+    font-family: Impact;
+    font-size: large;
+}
+
+#start {
+    font: bolder;
+    font-family: Impact;
+    font-size: large
 }
