@@ -6,6 +6,10 @@ const scoreEle = document.querySelector('#scoreEle')
 const startScreen = document.querySelector('#startScreen')
 const scoreboardContainer = document.querySelector('.scoreboard-container')
 const restartButton = document.querySelector('#restart')
+const music = document.querySelector('#music')
+const gunshot = document.querySelector('#gunshot')
+const gunshotButton = document.querySelector('#gunshotButton')
+const musicButton = document.querySelector('#musicButton')
 
 const playerImage = new Image();
 playerImage.src = '/shadow_dog.png'
@@ -329,6 +333,39 @@ startButton.addEventListener('click', (e) => {
     startScreen.style.display = 'none'
     scoreboardContainer.style.display = 'block'
 })
+
+
+window.addEventListener('click', ()=> {
+    music.play();
+    music.volume = 0.2
+})
+
+window.addEventListener('click', () => {
+    gunshot.play();
+    gunshot.volume = 0.2
+})
+
+musicButton.addEventListener('click', () => {
+    music.pause();
+    music.volume = 0
+    console.log('should pause music')
+})
+
+gunshotButton.addEventListener('click', () => {
+    gunshot.pause();
+    gunshot.volume = 0
+    console.log('should pause gunshots')
+})
+
+// window.addEventListener('click', ()=> {
+//     song.play();
+// })
+
+// sound.addEventListener('click', (e) => {
+//     function playMusic() { 
+//         let song = new Audio("alone-with-the-darkness-9859.mp3")
+//     }
+// })
 
 // SPRITE ANIMATION 
 

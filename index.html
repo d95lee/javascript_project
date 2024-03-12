@@ -20,6 +20,11 @@
     </ul>
     </div>
 
+
+    <style>
+      @import url('https://fonts.cdnfonts.com/css/zombie');
+    </style>
+
     <div id="startScreen">
       <h1>Zombie Run</h1>
         <button id="start">Start</button>
@@ -56,6 +61,20 @@
       <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     </div>
 
+
+    <div class="audio-container">
+      <audio id="music" src="./music/alone-with-the-darkness-9859.mp3"></audio>
+      <button id="musicButton" class="music-button">
+        <ion-icon name="musical-notes-outline"></ion-icon>
+      </button>
+
+      <audio id="gunshot" preload="auto" src="./music/Pistol Silencer 2 - QuickSounds.com.mp3"></audio>
+      <button id="gunshotButton" class="music-button">
+        <ion-icon name="volume-mute-outline"></ion-icon>
+      </button>
+    </div>
+        
+    
         <canvas id="canvas"></canvas>
         <img id="playerShoot" src="/shadow_dog.png">
 

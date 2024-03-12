@@ -5,6 +5,7 @@ body {
 
 .scoreboard-container {
     z-index: -1; /*puts element to the back*/
+    font-family: 'Zombie', sans-serif;
     color: black;
     font: bolder; 
     padding: 2px;
@@ -24,6 +25,7 @@ body {
 
 #startScreen {
     background-color: black;
+    font-family: 'Zombie', sans-serif;
     color: white;
     display: flex;
     justify-content:space-around;
@@ -38,6 +40,7 @@ body {
 
 #gameOver {
     background-color: black;
+    font-family: 'Zombie', sans-serif;
     color: white;
     display: flex;
     justify-content:space-around;
@@ -52,14 +55,20 @@ body {
 
 #restart {
     font: bolder;
-    font-family: Impact;
+    font-family: 'Zombie', sans-serif;
     font-size: large;
+    background-color: red;
+    border-radius: 5px;
+    border-color: red;
 }
 
 #start {
     font: bolder;
-    font-family: Impact;
-    font-size: large
+    font-family: 'Zombie', sans-serif;
+    font-size: large;
+    background-color: red;
+    border-radius: 5px;
+    border-color: red;
 }
 
 .socials-container {
@@ -85,19 +94,41 @@ body {
     right: 50px;
 }
 
+.socials-container2 {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: 10px;
+}
+
 .socials2 {
-    color: black;
-    text-decoration: none;
+    color: white;
+}
+
+.socials2:nth-child(1) {
+    margin: 10px 7px;
+}
+
+.socials2:nth-child(2) {
+    margin: 10px 7px;
+}
+
+.audio-container {
     top: 5px;
     padding: 5px;
     position: absolute;
     font-size: 20px;
 }
 
-.socials2:nth-child(1) {
-    right: 20px;
+.icon:nth-child(1) {
+    margin: 10px 7px;
 }
 
-.socials2:nth-child(2) {
-    right: 50px;
+.icon:nth-child(2) {
+    margin: 0px 7px;
+}
+
+.music-button {
+    background-color: white;
+    border-radius: 5px;
 }
