@@ -41,19 +41,11 @@ class Player {
         if (e.code === "KeyS") this.vy = 0;
     }
 
-    draw() { //creates the image for the small dog that will now replace the circle 
-        c.drawImage(this.playerSprite, 0, 0, spriteWidth, spriteHeight, this.x, this.y,
-                    this.width * 3, this.height * 3)
-    } // (image, x axis placement, y axis placement, (source rectangle of the triangle) for spriteWidth && spriteHeight,
-      // (this.x & this.y represent top left corner of canvas, this.width & this.height represent size of player on canvas)
-
-    update() {
-        this.x += this.vx; // Updates player position based on velocity
-        this.y += this.vy;
+    draw() {
+        c.drawImage(this.playerSprite, this.x, this.y, this.width, this.height)
     }
 }
 
-const player = new Player(300, 100, playerImage);
 
 class Enemy {
     constructor(x, y, radius, color, velocity) {
@@ -167,42 +159,28 @@ let playerHealth = 100
 
 const spriteWidth = 575
 const spriteHeight = 523
-let frameX = 0
-let frameY = 0
-let gameFrame = 0
-const staggerFrames = 5;
 
-// playerImage.onload = function() {
-//     const player = new Player(300, 100, playerImage);
-// }
+let player
+playerImage.onload = function() {
+    const player = new Player(300, 100, playerImage);
+}
 
 function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height)
-
-    // c.drawImage(playerImage, frameX * spriteWidth, frameY * spriteHeight, 
-    //     spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
-    //     if (gameFrame % staggerFrames === 0) {
-    //     if (frameX < 6) frameX++;
-    //     else frameX = 0;
-    //     }
-    //     gameFrame++;
-
     const animateAll = requestAnimationFrame(animate)
     // player.x += player.vx // updating player position based on its velocity
     // player.y += player.vy
     // player.draw() // player is able to move
     // enemy.draw() // enemy is refreshed over and over
-   
-    player.update();
-    player.draw();
-
+    // projectile()
+    // updateEnemyPos()
     eachEnemy()
     if (enemies.length === 0) {
         createEnemies()
     }
   
     // c.drawImage(playerShoot, 100, 100, 100, playerShoot.height/100)
-    // c.drawImage(playerImage, 0, 0, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight)
+    c.drawImage(playerImage, 0, 0,1 * spriteWidth, 3 * spriteHeight, 0, 0, spriteWidth, spriteHeight)
     
     projectiles.forEach((projectile, idx) => {
     projectile.update()

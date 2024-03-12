@@ -7,19 +7,18 @@ const startScreen = document.querySelector('#startScreen')
 const scoreboardContainer = document.querySelector('.scoreboard-container')
 const restartButton = document.querySelector('#restart')
 
-const playerImage = new Image();
-playerImage.src = '/shadow_dog.png'
+// const playerImage = new Image();
+// playerImage.src = '/shadow_dog.png'
 
 c.imageSmoothingEnabled = true
 c.imageSmoothingQuality = 'high'
 
 class Player {
-    constructor(x, y, playerSprite) {
+    constructor(x, y, radius, color) {
         this.x = x
         this.y = y
-        this.playerSprite = playerSprite 
-        this.width = 30
-        this.height = 30
+        this.radius = radius 
+        this.color = color
         this.vx = 0 //velocity in the x direction
         this.vy = 0 //velocity in the y direction
 
@@ -41,19 +40,16 @@ class Player {
         if (e.code === "KeyS") this.vy = 0;
     }
 
-    draw() { //creates the image for the small dog that will now replace the circle 
-        c.drawImage(this.playerSprite, 0, 0, spriteWidth, spriteHeight, this.x, this.y,
-                    this.width * 3, this.height * 3)
-    } // (image, x axis placement, y axis placement, (source rectangle of the triangle) for spriteWidth && spriteHeight,
-      // (this.x & this.y represent top left corner of canvas, this.width & this.height represent size of player on canvas)
-
-    update() {
-        this.x += this.vx; // Updates player position based on velocity
-        this.y += this.vy;
+    draw() {
+        c.beginPath()
+        c.fillStyle = this.color // setting the fill color before filling in the shape
+        c.arc(this.x, this.y, this.radius, 0, 2*Math.PI, false)
+        c.fill()
+        c.stroke()
+        c.closePath()
     }
 }
 
-const player = new Player(300, 100, playerImage);
 
 class Enemy {
     constructor(x, y, radius, color, velocity) {
@@ -118,18 +114,18 @@ class Enemy {
                 this.y += 3
             } 
         } else {
-                if (yDiff < 0 && this.color === 'red') {
-                    this.y -= 0.2 
-                } else if (this.color === 'blue') {
-                    this.y -= 1
-                } else if (this.color === 'black') {
-                    this.y -= 2
-                } else if (this.color === 'green') {
-                    this.y -=3
-                }
+            if (yDiff < 0 && this.color === 'red') {
+                this.y -= 0.2 
+            } else if (this.color === 'blue') {
+                this.y -= 1
+            } else if (this.color === 'black') {
+                this.y -= 2
+            } else if (this.color === 'green') {
+                this.y -=3
             }
         }
     }
+}
 
 class Projectile {
     constructor(x, y, radius, color, velocity) {
@@ -158,7 +154,7 @@ class Projectile {
     }
 }
 
-// const player = new Player(player, 0, 0, 30, 30)
+const player = new Player(300, 100, 30, "grey")
 
 let enemies = []
 let projectiles = []
@@ -167,42 +163,23 @@ let playerHealth = 100
 
 const spriteWidth = 575
 const spriteHeight = 523
-let frameX = 0
-let frameY = 0
-let gameFrame = 0
-const staggerFrames = 5;
-
-// playerImage.onload = function() {
-//     const player = new Player(300, 100, playerImage);
-// }
 
 function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height)
-
-    // c.drawImage(playerImage, frameX * spriteWidth, frameY * spriteHeight, 
-    //     spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
-    //     if (gameFrame % staggerFrames === 0) {
-    //     if (frameX < 6) frameX++;
-    //     else frameX = 0;
-    //     }
-    //     gameFrame++;
-
     const animateAll = requestAnimationFrame(animate)
-    // player.x += player.vx // updating player position based on its velocity
-    // player.y += player.vy
-    // player.draw() // player is able to move
+    player.x += player.vx // updating player position based on its velocity
+    player.y += player.vy
+    player.draw() // player is able to move
     // enemy.draw() // enemy is refreshed over and over
-   
-    player.update();
-    player.draw();
-
+    // projectile()
+    // updateEnemyPos()
     eachEnemy()
     if (enemies.length === 0) {
         createEnemies()
     }
   
     // c.drawImage(playerShoot, 100, 100, 100, playerShoot.height/100)
-    // c.drawImage(playerImage, 0, 0, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight)
+    // c.drawImage(playerImage, 0, 0,1 * spriteWidth, 3 * spriteHeight, 0, 0, spriteWidth, spriteHeight)
     
     projectiles.forEach((projectile, idx) => {
     projectile.update()
@@ -227,10 +204,10 @@ function animate() {
         console.log("Game Over")
     }
 
-    // if (playerHealth <= 0) {
-    //     gameOver()
-    //     scoreboardContainer.style.display = 'none'
-    // }
+    if (playerHealth <= 0) {
+        gameOver()
+        scoreboardContainer.style.display = 'none'
+    }
 
     if (startScreen.style.display == 'block') {
         cancelAnimationFrame(animateAll)

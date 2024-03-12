@@ -61,3 +61,43 @@ body {
     font-family: Impact;
     font-size: large
 }
+
+.socials-container {
+    /* display: flex;
+    justify-content: flex-end; */
+    position: relative;
+}
+
+.socials {
+    color: black;
+    text-decoration: none;
+    top: 5px;
+    padding: 5px;
+    position: absolute;
+    font-size: 20px;
+}
+
+.socials:nth-child(1) {
+    right: 20px;
+}
+
+.socials:nth-child(2) {
+    right: 50px;
+}
+
+.socials2 {
+    color: black;
+    text-decoration: none;
+    top: 5px;
+    padding: 5px;
+    position: absolute;
+    font-size: 20px;
+}
+
+.socials2:nth-child(1) {
+    right: 20px;
+}
+
+.socials2:nth-child(2) {
+    right: 50px;
+}
