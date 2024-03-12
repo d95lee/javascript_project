@@ -26,16 +26,36 @@ body {
 #startScreen {
     background-color: black;
     font-family: 'Zombie', sans-serif;
-    color: white;
+    color: rgb(165, 21, 21);
+    font-size: 40px;
     display: flex;
     justify-content:space-around;
     margin: 300px;
-    padding: 20px;
+    padding: 40px;
     top: 50%;
     right: 50%;
     text-align: center;
     border-radius: 5px;
     display: block;
+}
+
+#instructions {
+    font-family: 'Zombie', sans-serif;
+    font-weight: 100;
+    font-size: 25px;
+    color: white;
+}
+
+.instruction-icons {
+    width: 130px;
+    height: 130px;
+    background-color: white;
+}
+
+#points {
+    list-style-type: none;
+    font-size: 20px;
+    color: white;   
 }
 
 #gameOver {

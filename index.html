@@ -27,6 +27,25 @@
 
     <div id="startScreen">
       <h1>Zombie Run</h1>
+
+      <p id="instructions">
+        
+        The zombies have taken over the city of San Francisco!
+        Use the 'wasd' keys to move the player around the map.
+        Click the left mouse button to shoot bullets at the zombies.
+        Becareful, the green zombies are fast!
+
+        <ul id="points">
+          <li>Red zombies - 10 points</li>
+          <li>Blue zombies - 20 points</li>
+          <li>Black zombies - 30 points</li>
+          <li>Green zombies - 50 points</li>
+        </ul>
+        <img class="instruction-icons" src="./icons/wasd_9861306.png" alt="">
+        <img class="instruction-icons" src="./icons/left-click_3645819.png" alt="">
+
+      </p>
+
         <button id="start">Start</button>
           <div class="socials-container2">
             <a class="socials2" href="https://github.com/d95lee/javascript_project" target="_blank">
@@ -40,6 +59,7 @@
             <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
           </div>
+
     </div>
 
     <div id="gameOver">
@@ -77,7 +97,6 @@
     
         <canvas id="canvas"></canvas>
         <img id="playerShoot" src="/shadow_dog.png">
-
         <script src="./src/canvas.js"></script>
         <script src="./src/movement.js"></script>
         <script src="./src/main.js"></script>

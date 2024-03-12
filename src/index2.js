@@ -57,7 +57,7 @@ class Player {
     }
 }
 
-const player = new Player(300, 100, playerImage);
+// const player = new Player(300, 100, playerImage);
 
 class Enemy {
     constructor(x, y, radius, color, velocity) {
@@ -171,14 +171,15 @@ let playerHealth = 100
 
 const spriteWidth = 575
 const spriteHeight = 523
-let frameX = 0
-let frameY = 0
-let gameFrame = 0
-const staggerFrames = 5;
+// let frameX = 0
+// let frameY = 0
+// let gameFrame = 0
+// const staggerFrames = 5;
 
 // playerImage.onload = function() {
-//     const player = new Player(300, 100, playerImage);
+    const player = new Player(300, 100, playerImage);
 // }
+
 
 function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height)
@@ -186,14 +187,14 @@ function animate() {
     // c.drawImage(playerImage, frameX * spriteWidth, frameY * spriteHeight, 
     //     spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
     //     if (gameFrame % staggerFrames === 0) {
-    //     if (frameX < 6) frameX++;
+    //         if (frameX < 6) frameX++;
     //     else frameX = 0;
     //     }
     //     gameFrame++;
 
     const animateAll = requestAnimationFrame(animate)
-    // player.x += player.vx // updating player position based on its velocity
-    // player.y += player.vy
+    player.x += player.vx // updating player position based on its velocity
+    player.y += player.vy
     // player.draw() // player is able to move
     // enemy.draw() // enemy is refreshed over and over
    
@@ -231,10 +232,10 @@ function animate() {
         console.log("Game Over")
     }
 
-    // if (playerHealth <= 0) {
-    //     gameOver()
-    //     scoreboardContainer.style.display = 'none'
-    // }
+    if (playerHealth <= 0) {
+        gameOver()
+        scoreboardContainer.style.display = 'none'
+    }
 
     if (startScreen.style.display == 'block') {
         cancelAnimationFrame(animateAll)
@@ -270,7 +271,7 @@ function eachEnemy() {
         })// red, blue, black, green
 
             const distance = Math.hypot(player.x - enemy.x, player.y - enemy.y)
-        if (distance - enemy.radius - (player.radius) < 1 ) { //distance between player and enemy
+        if (distance - enemy.radius - (player.width) < 1 ) { //distance between player and enemy
             playerHealth -= 1 // subtracts 0.2 to playerhealth for every millisecond of contact
             health.innerHTML = `Health: ${playerHealth}` // displays changing health
         }
@@ -322,6 +323,8 @@ addEventListener('click', (e) => {
 restartButton.addEventListener('click', (e) => {
     newGame() // resets everything
     animate() // reanimates the game
+    music.play()
+    music.volume = 0.2
     gameOverScreen.style.display = 'none' // hides the gameover display
     scoreboardContainer.style.display = 'block'
 })
@@ -330,15 +333,17 @@ const startButton = document.querySelector('#start')
 startButton.addEventListener('click', (e) => {
     newGame()
     animate()
+    music.play()
+    music.volume = 0.2
     startScreen.style.display = 'none'
     scoreboardContainer.style.display = 'block'
 })
 
 
-window.addEventListener('click', ()=> {
-    music.play();
-    music.volume = 0.2
-})
+// window.addEventListener('click', ()=> {
+//     music.play();
+//     music.volume = 0.2
+// })
 
 window.addEventListener('click', () => {
     gunshot.play();
@@ -346,26 +351,23 @@ window.addEventListener('click', () => {
 })
 
 musicButton.addEventListener('click', () => {
-    music.pause();
-    music.volume = 0
-    console.log('should pause music')
+    if (music.paused) { //music.paused returns a boolean value
+        music.play()
+    } else {
+        music.pause()
+        music.currentTime = 0;
+    }
 })
 
+// broken, doesn't toggle gun shot sounds 
 gunshotButton.addEventListener('click', () => {
-    gunshot.pause();
-    gunshot.volume = 0
-    console.log('should pause gunshots')
+    if (gunshot.volume === 0) {
+        gunshot.play()
+    } else {
+        gunshot.volume = 0
+    }
 })
 
-// window.addEventListener('click', ()=> {
-//     song.play();
-// })
-
-// sound.addEventListener('click', (e) => {
-//     function playMusic() { 
-//         let song = new Audio("alone-with-the-darkness-9859.mp3")
-//     }
-// })
 
 // SPRITE ANIMATION 
 
