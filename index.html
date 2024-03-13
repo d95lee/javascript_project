@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./src/style.css">
     <link rel="icon" type="image/x-icon" href="/zombie.png">
     <script src="./dist/main.js"></script>
-    <title>Project Name</title>
+    <title>Zombie Run</title>
   </head>
 
   <body>
@@ -20,6 +20,8 @@
     </ul>
     </div>
 
+    <div id="levelEle">Level: 1</div>
+
 
     <style>
       @import url('https://fonts.cdnfonts.com/css/zombie');
@@ -29,7 +31,6 @@
       <h1>Zombie Run</h1>
 
       <p id="instructions">
-        
         The zombies have taken over the city of San Francisco!
         Use the 'wasd' keys to move the player around the map.
         Click the left mouse button to shoot bullets at the zombies.
@@ -43,7 +44,6 @@
         </ul>
         <img class="instruction-icons" src="./icons/wasd_9861306.png" alt="">
         <img class="instruction-icons" src="./icons/left-click_3645819.png" alt="">
-
       </p>
 
         <button id="start">Start</button>
@@ -59,11 +59,12 @@
             <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
           </div>
-
     </div>
 
+    
     <div id="gameOver">
        <h1>Game Over</h1>
+       <h1 id="gameOverLevel"> 0 </h1>
        <h1 id="scoreEle"> 0 </h1>
        <button id="restart">Restart</button>
     </div>
@@ -72,11 +73,9 @@
       <a class="socials" href="https://github.com/d95lee/javascript_project" target="_blank">
         <ion-icon name="logo-github"></ion-icon>
       </a>
-
       <a class="socials" href="https://www.linkedin.com/in/david-lee-49959a20a/" target="_blank">
         <ion-icon name="logo-linkedin"></ion-icon>
       </a>
-    
       <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
       <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     </div>
@@ -96,7 +95,7 @@
         
     
         <canvas id="canvas"></canvas>
-        <img id="playerShoot" src="/shadow_dog.png">
+        <!-- <img id="playerShoot" src="/shadow_dog.png"> -->
         <script src="./src/canvas.js"></script>
         <script src="./src/movement.js"></script>
         <script src="./src/main.js"></script>

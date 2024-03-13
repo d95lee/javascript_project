@@ -1,12 +1,12 @@
 body {
-    background-image: url(../city-element-seamless-pattern/10118.jpg);
+    background-image: url(../maps/map2.png);
     margin: 0;
 }
 
 .scoreboard-container {
     z-index: -1; /*puts element to the back*/
     font-family: 'Zombie', sans-serif;
-    color: black;
+    color: white;
     font: bolder; 
     padding: 2px;
     display: flex;
@@ -35,8 +35,9 @@ body {
     top: 50%;
     right: 50%;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 12px;
     display: block;
+    font-weight: 100;
 }
 
 #instructions {
@@ -55,7 +56,22 @@ body {
 #points {
     list-style-type: none;
     font-size: 20px;
-    color: white;   
+    color: white;
+    font-weight: 100;   
+}
+
+#levelEle {
+    font-family: 'Zombie', sans-serif;
+    font-size: 80px;
+    color: red;
+    position: absolute;
+    display: none;
+    left: 600px;
+}
+
+#gameOverLevel {
+    font-size: 30px;
+    font-weight: 100;
 }
 
 #gameOver {
@@ -69,8 +85,14 @@ body {
     top: 50%;
     right: 50%;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 20px;
     display: none;
+    font-size: 32px;
+}
+
+#scoreEle {
+    font-size: 30px;
+    font-weight: 100;
 }
 
 #restart {
@@ -89,6 +111,7 @@ body {
     background-color: red;
     border-radius: 5px;
     border-color: red;
+    font-weight: 100;
 }
 
 .socials-container {
@@ -98,7 +121,7 @@ body {
 }
 
 .socials {
-    color: black;
+    color: red;
     text-decoration: none;
     top: 5px;
     padding: 5px;

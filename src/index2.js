@@ -10,9 +10,19 @@ const music = document.querySelector('#music')
 const gunshot = document.querySelector('#gunshot')
 const gunshotButton = document.querySelector('#gunshotButton')
 const musicButton = document.querySelector('#musicButton')
+const levelEle = document.querySelector('#levelEle')
+const gameOverLevel = document.querySelector('#gameOverLevel')
 
 const playerImage = new Image();
-playerImage.src = '/shadow_dog.png'
+playerImage.src = '/pixel_player/player.png'
+// playerImage.src = '/shadow_dog.png'
+
+const enemyImage = new Image();
+enemyImage.src = '/Enemy.png'
+
+enemyImage.onload = function() {
+    console.log('Enemy image loaded successfully!');
+}
 
 c.imageSmoothingEnabled = true
 c.imageSmoothingQuality = 'high'
@@ -32,10 +42,10 @@ class Player {
     }
 
     handleKeyDown(e) { // Every time a key is pressed down, in moves in the x, y direction respectively
-        if (e.code === "KeyA") this.vx = -5;
-        if (e.code === "KeyD") this.vx = 5;
-        if (e.code === "KeyW") this.vy = -5;
-        if (e.code === "KeyS") this.vy = 5;
+        if (e.code === "KeyA") this.vx = -3;
+        if (e.code === "KeyD") this.vx = 3;
+        if (e.code === "KeyW") this.vy = -3;
+        if (e.code === "KeyS") this.vy = 3;
     }
 
     handleKeyUp(e) { // Every time a key is released, all movement in the respective x, y direction stop
@@ -45,9 +55,18 @@ class Player {
         if (e.code === "KeyS") this.vy = 0;
     }
 
+    // mapBoundary() {
+    //     if ()
+    // }
+
+    // draw() { //creates the image for the small dog that will now replace the circle 
+    //     c.drawImage(this.playerSprite, 0, 0, spriteWidth, spriteHeight, this.x, this.y,
+    //                 this.width * 3, this.height * 3)
+
     draw() { //creates the image for the small dog that will now replace the circle 
-        c.drawImage(this.playerSprite, 0, 0, spriteWidth, spriteHeight, this.x, this.y,
-                    this.width * 3, this.height * 3)
+        c.drawImage(this.playerSprite, 205, 250, spriteWidth, spriteHeight, this.x, this.y,
+                    this.width * 1.5, this.height * 1.5)
+
     } // (image, x axis placement, y axis placement, (source rectangle of the triangle) for spriteWidth && spriteHeight,
       // (this.x & this.y represent top left corner of canvas, this.width & this.height represent size of player on canvas)
 
@@ -60,22 +79,53 @@ class Player {
 // const player = new Player(300, 100, playerImage);
 
 class Enemy {
-    constructor(x, y, radius, color, velocity) {
+    constructor(x, y, radius, color, velocity, enemySprite) {
         this.x = x
         this.y = y
         this.radius = radius
         this.color = color
         this.velocity = velocity
+        this.enemySprite = enemySprite
     }
 
+    // draw() {
+    //     c.drawImage(this.enemySprite, 0, 0, spriteWidth, spriteHeight, this.x, this.y,
+    //         this.width * 3, this.height * 3)
+    //     }
+    
+
     draw() {
-        c.beginPath()
-        c.fillStyle = this.color
-        c.arc(this.x, this.y, this.radius, 0, 2*Math.PI, false)
-        c.fill()
-        c.stroke()
-        c.closePath()
+        if (enemyImage && enemyImage.complete) {
+            c.drawImage(enemyImage, 200, 200, enemySpriteWidth, enemySpriteHeight, this.x, this.y,
+                this.width * 1.5, this.height * 1.5);
+        } else {
+            // Draw a circle if no image is provided or if the image is not yet loaded
+            c.beginPath();
+            c.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            c.fillStyle = this.color;
+            c.fill();
+            c.closePath();
+        }
     }
+
+    // constructor(x, y, enemySprite ,velocity) {
+    //     this.x = x
+    //     this.y = y
+    //     this.velocity = velocity
+    // }
+
+    // draw() {
+    //     c.beginPath()
+    //     c.fillStyle = this.color
+    //     c.arc(this.x, this.y, this.radius, 0, 2*Math.PI, false)
+    //     c.fill()
+    //     c.stroke()
+    //     c.closePath()
+    // }
+    
+    // draw () {
+    //     c.drawImage(this.enemySprite, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2)
+    // }
 
     updateEnemyPos() { // note enemies still vibrate back and forth...
         let xDiff = player.x - this.x // player position - enemy position 
@@ -89,50 +139,66 @@ class Enemy {
         this.draw()
         // red, blue, black, green
         // changes/increases direction in the x axis
+         
         if (xDiff > 0) { // if the difference in xposition is > 0 then chase player x, y, and diagonally
             if (this.color === 'red') {
-                this.x += 0.2
+                this.x += 0.2 + (level * 0.05) // as levels increase, speed of enemies increase
             } else if (this.color === 'blue') {
-                this.x += 1
+                this.x += 0.4 + (level * 0.05)
             } else if (this.color === 'black') {
-                this.x += 2
+                this.x += 0.6 + (level * 0.05)
             } else if (this.color === 'green') {
-                this.x += 3
+                this.x += 1 + (level * 0.05)
             } 
         } else {
             if (xDiff < 0 && this.color === 'red') {
-                this.x -= 0.2 
+                this.x -= 0.2 + (level * 0.05)
             } else if (this.color === 'blue') {
-                this.x -= 1
+                this.x -= 0.4 + (level * 0.05)
             } else if (this.color === 'black') {
-                this.x -= 2
+                this.x -= 0.6 + (level * 0.05)
             } else if (this.color === 'green') {
-                this.x -=3
+                this.x -= 1 + (level * 0.05)
             }    
         }
             // changes/increases direction in the y axis
         if (yDiff > 0) {
             if (this.color === 'red') {
-                this.y += 0.2 // if the difference in yposition is > 0 then chase player
+                this.y += 0.2 + (level * 0.05) // if the difference in yposition is > 0 then chase player
             } else if (this.color === 'blue') {
-                this.y += 1
+                this.y += 0.4 + (level * 0.05)
             } else if (this.color === 'black') {
-                this.y += 2
+                this.y += 0.6 + (level * 0.05) 
             } else if (this.color === 'green') {
-                this.y += 3
+                this.y += 1 + (level * 0.05)
             } 
         } else {
                 if (yDiff < 0 && this.color === 'red') {
-                    this.y -= 0.2 
+                    this.y -= 0.2 + (level * 0.05) 
                 } else if (this.color === 'blue') {
-                    this.y -= 1
+                    this.y -= 0.4 + (level * 0.05)
                 } else if (this.color === 'black') {
-                    this.y -= 2
+                    this.y -= 0.6 + (level * 0.05)
                 } else if (this.color === 'green') {
-                    this.y -=3
+                    this.y -= 1 + (level * 0.05)
                 }
             }
         }
+
+        speedIncrease () {
+            if (xDiff > 0) {
+                this.x += 1
+            } else if (xDiff < 0) {
+                this.x -= 1
+            } else if (yDiff > 0) {
+                this.y += 1
+            } else if (yDiff < 0) {
+                this.y -= 1
+            }
+            console.log(this.x)
+            console.log(this.y)
+        }
+
     }
 
 class Projectile {
@@ -168,23 +234,28 @@ let enemies = []
 let projectiles = []
 let score = 0
 let playerHealth = 100
+let level = 0
 
-const spriteWidth = 575
-const spriteHeight = 523
-// let frameX = 0
-// let frameY = 0
-// let gameFrame = 0
-// const staggerFrames = 5;
+const enemySpriteWidth = 34
+const enemySpriteHeight = 38
+
+const spriteWidth = 34
+const spriteHeight = 38
+let frameX = 0
+let frameY = 3
+let gameFrame = 0
+const staggerFrames = 5;
 
 // playerImage.onload = function() {
-    const player = new Player(300, 100, playerImage);
-// }
+    const player = new Player(100, 100, playerImage);
+// }   //(100, 100 IS THE X and Y SPAWN POINT)
 
-
+// const enemy1 = new Enemy(300, 300, 20, 'white', 0.2, 'zombie.png');
+    // const enemy1 = new Enemy(300, 100, enemyImage);
 function animate() {
     c.clearRect(0, 0, canvas.width, canvas.height)
 
-    // c.drawImage(playerImage, frameX * spriteWidth, frameY * spriteHeight, 
+    // let newPlayerImage = c.drawImage(playerImage, frameX * spriteWidth, frameY * spriteHeight, 
     //     spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight);
     //     if (gameFrame % staggerFrames === 0) {
     //         if (frameX < 6) frameX++;
@@ -192,20 +263,25 @@ function animate() {
     //     }
     //     gameFrame++;
 
+        // const player = new Player(300, 100, newPlayerImage);
+
     const animateAll = requestAnimationFrame(animate)
     player.x += player.vx // updating player position based on its velocity
     player.y += player.vy
     // player.draw() // player is able to move
     // enemy.draw() // enemy is refreshed over and over
-   
+  
     player.update();
     player.draw();
 
     eachEnemy()
     if (enemies.length === 0) {
+        level += 1
         createEnemies()
+        console.log(level)
+        levelEle.innerHTML = `Level: ${level}`
     }
-  
+
     // c.drawImage(playerShoot, 100, 100, 100, playerShoot.height/100)
     // c.drawImage(playerImage, 0, 0, spriteWidth, spriteHeight, 0, 0, spriteWidth, spriteHeight)
     
@@ -228,25 +304,29 @@ function animate() {
         const endScreen = document.querySelector('#gameOver')
         endScreen.style.display
         gameOverScreen.style.display = 'block' // allows our hidden gameover screen to be displayed once our health hits 0
-        scoreEle.innerHTML = score // allows score to be displayed
-        console.log("Game Over")
+        scoreEle.innerHTML = `${score} Points` // allows score to be displayed
+        gameOverLevel.innerHTML = `Survived until level ${level}` // allows level to be displayed
     }
 
-    if (playerHealth <= 0) {
-        gameOver()
-        scoreboardContainer.style.display = 'none'
-    }
+    // if (playerHealth <= 0) {
+    //     gameOver()
+    //     scoreboardContainer.style.display = 'none'
+    //     levelEle.style.display = 'none'
+    // }
 
     if (startScreen.style.display == 'block') {
         cancelAnimationFrame(animateAll)
     }
+
+
 }
 
 
 function eachEnemy() {
     enemies.forEach((enemy, idx) => {
-        // enemy.draw()
+        
         enemy.updateEnemyPos()
+        enemy.draw()
 
         projectiles.forEach((projectile, pidx) => {
             const distance = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y) // measures the distance from projectile to the enemy
@@ -280,10 +360,20 @@ function eachEnemy() {
 
 
 function createEnemies() {
-    let maxEnemy = 3
+    let maxEnemy = 1
     
+    maxEnemy = (level * 2) - 1
+    if (level >= 1) {
+        enemies.forEach((enemy) => {
+            enemy.speedIncrease()
+        })
+    }
+
+    // if (level >= 1) {
+
+    // }
     // if (enemies.length === 0) {
-    //     maxEnemy += 3
+    //     maxEnemy += 3 
     //  }
 
     for (let i = 0; i < maxEnemy; i++) {
@@ -302,6 +392,7 @@ function newGame() { // reseting all arrays and variables
     enemies = []
     score = 0
     playerHealth = 100
+    level = 0
 
     let healthUI = document.querySelector('#health')
     healthUI.innerHTML = `Health: ${playerHealth}`
@@ -327,16 +418,18 @@ restartButton.addEventListener('click', (e) => {
     music.volume = 0.2
     gameOverScreen.style.display = 'none' // hides the gameover display
     scoreboardContainer.style.display = 'block'
+    levelEle.style.display = 'block'
 })
 
 const startButton = document.querySelector('#start')
 startButton.addEventListener('click', (e) => {
     newGame()
     animate()
-    music.play()
-    music.volume = 0.2
+    // music.play()  REENABLE, DISABLED FOR TESTING
+    // music.volume = 0.2
     startScreen.style.display = 'none'
     scoreboardContainer.style.display = 'block'
+    levelEle.style.display = 'block'
 })
 
 
@@ -350,14 +443,15 @@ window.addEventListener('click', () => {
     gunshot.volume = 0.2
 })
 
-musicButton.addEventListener('click', () => {
-    if (music.paused) { //music.paused returns a boolean value
-        music.play()
-    } else {
-        music.pause()
-        music.currentTime = 0;
-    }
-})
+// musicButton.addEventListener('click', () => {
+//     if (music.paused) { //music.paused returns a boolean value
+//         music.play()
+//         music.volume = 0.2
+//     } else {
+//         music.pause()
+//         music.currentTime = 0;
+//     }
+// })
 
 // broken, doesn't toggle gun shot sounds 
 gunshotButton.addEventListener('click', () => {
