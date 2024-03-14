@@ -22,7 +22,7 @@
 
     <div id="levelEle">Level: 1</div>
 
-
+  
     <style>
       @import url('https://fonts.cdnfonts.com/css/zombie');
     </style>
@@ -30,28 +30,34 @@
     <div id="startScreen">
       <h1>Zombie Run</h1>
 
-      <p id="instructions">
-        The zombies have taken over the city of San Francisco!
-        Use the 'wasd' keys to move the player around the map.
-        Click the left mouse button to shoot bullets at the zombies.
-        Becareful, the green zombies are fast!
+      <p class="instructions">
+        The zombies have taken over the courtyard!
+        Use the <span style="color: red">'wasd' keys</span> to move the player around the map.
+
+        <p class="instructions">
+          <span style="color: red">Click the left mouse button</span> to kill the zombies.</p>
+        
+          <p class="instructions">Becareful, the green zombies are fast!</p>
 
         <ul id="points">
-          <li>Red zombies - 10 points</li>
-          <li>Blue zombies - 20 points</li>
-          <li>Black zombies - 30 points</li>
-          <li>Green zombies - 50 points</li>
+          <li><span style="color: red">Red </span> zombies - 10 points</li>
+          <li><span style="color: blue">Blue </span> zombies - 20 points</li>
+          <li><span style="color: rgb(34, 33, 33)">Black </span> zombies - 30 points</li>
+          <li><span style="color: green">Green </span> zombies - 50 points</li>
         </ul>
         <img class="instruction-icons" src="./icons/wasd_9861306.png" alt="">
         <img class="instruction-icons" src="./icons/left-click_3645819.png" alt="">
       </p>
+        <p class="difficulty"><span style="color: rgb(161, 33, 33); font-size: 50px;">Easy:</span> Decreased damage/speed from zombies - Increased rate of fire - Red zombies don't shoot at you</p>
+        <p class="difficulty"><span style="color: rgb(255, 0, 0); font-size: 50px;">Hard:</span> Increased damage/speed from zombies - Decreased rate of fire - Red zombies will shoot you  </p>
+        <button id="easy-mode">Easy</button>
+        <button id="hard-mode">Hard</button>
 
-        <button id="start">Start</button>
           <div class="socials-container2">
             <a class="socials2" href="https://github.com/d95lee/javascript_project" target="_blank">
               <ion-icon name="logo-github"></ion-icon>
             </a>
-      
+
             <a class="socials2" href="https://www.linkedin.com/in/david-lee-49959a20a/" target="_blank">
               <ion-icon name="logo-linkedin"></ion-icon>
             </a>
@@ -95,7 +101,6 @@
         
     
         <canvas id="canvas"></canvas>
-        <!-- <img id="playerShoot" src="/shadow_dog.png"> -->
         <script src="./src/canvas.js"></script>
         <script src="./src/movement.js"></script>
         <script src="./src/main.js"></script>

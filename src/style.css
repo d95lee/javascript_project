@@ -3,6 +3,34 @@ body {
     margin: 0;
 }
 
+#easy-mode {
+    font: bolder;
+    font-family: 'Zombie', sans-serif;
+    font-size: large;
+    background-color: red;
+    border-radius: 5px;
+    border-color: red;
+    font-weight: 100;
+}
+
+#hard-mode {
+    font: bolder;
+    font-family: 'Zombie', sans-serif;
+    font-size: large;
+    background-color: red;
+    border-radius: 5px;
+    border-color: red;
+    font-weight: 100;
+}
+
+.difficulty {
+    font-family: 'Zombie', sans-serif;
+    font-weight: 100;
+    font-size: 25px;
+    color: white;
+    align-self: flex-end;
+}
+
 .scoreboard-container {
     z-index: -1; /*puts element to the back*/
     font-family: 'Zombie', sans-serif;
@@ -40,33 +68,39 @@ body {
     font-weight: 100;
 }
 
-#instructions {
+.instructions {
     font-family: 'Zombie', sans-serif;
     font-weight: 100;
     font-size: 25px;
     color: white;
+    align-self: flex-end;
 }
 
 .instruction-icons {
     width: 130px;
     height: 130px;
     background-color: white;
+    border-radius: 20px;
 }
 
 #points {
     list-style-type: none;
     font-size: 20px;
     color: white;
-    font-weight: 100;   
+    font-weight: 100;  
 }
 
 #levelEle {
     font-family: 'Zombie', sans-serif;
     font-size: 80px;
     color: red;
+    display: flex;
+    justify-content: center;
     position: absolute;
     display: none;
-    left: 600px;
+    left: 50%;
+    top: 5%;
+    transform: translate(-50%, 0) /*negative to move it left, 50% to move it to the middle*/
 }
 
 #gameOverLevel {
@@ -104,7 +138,7 @@ body {
     border-color: red;
 }
 
-#start {
+/* #start {
     font: bolder;
     font-family: 'Zombie', sans-serif;
     font-size: large;
@@ -112,11 +146,9 @@ body {
     border-radius: 5px;
     border-color: red;
     font-weight: 100;
-}
+} */
 
 .socials-container {
-    /* display: flex;
-    justify-content: flex-end; */
     position: relative;
 }
 
@@ -127,6 +159,7 @@ body {
     padding: 5px;
     position: absolute;
     font-size: 20px;
+    display: none;
 }
 
 .socials:nth-child(1) {
