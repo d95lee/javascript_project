@@ -451,7 +451,6 @@ addEventListener('click', (e) => {
 
 restartButton.addEventListener('click', () => {
     newGame() // resets everything
-    animate() // reanimates the game
     music.play()
     music.volume = 0.2
     gameOverScreen.style.display = 'none' // hides the gameover display
@@ -470,7 +469,7 @@ musicButton.addEventListener('click', () => {
     }
 })
 
-hardModeButton.addEventListener('click', () => {
+
     newGame()
     animate()
     music.play()
@@ -480,7 +479,7 @@ hardModeButton.addEventListener('click', () => {
     levelEle.style.display = 'block'
     social.style.display = 'block'
     social2.style.display = 'block'
-    })
+    
 })
 
 
@@ -868,7 +867,6 @@ addEventListener('click', (e) => {
 
 restartButton.addEventListener('click', () => {
     newGame() // resets everything
-    animate() // reanimates the game
     music.play()
     music.volume = 0.2
     gameOverScreen.style.display = 'none' // hides the gameover display
@@ -891,7 +889,7 @@ musicButton.addEventListener('click', () => {
         music.currentTime = 0;
     }
 })
-easyModeButton.addEventListener('click', () => {
+
     newGame()
     animate()
     music.play()
@@ -901,6 +899,15 @@ easyModeButton.addEventListener('click', () => {
     levelEle.style.display = 'block'
     social.style.display = 'block'
     social2.style.display = 'block'
-    })
+  
 })
 
+musicButton.addEventListener('click', () => {
+    if (music.paused) { //music.paused returns a boolean value
+        music.play()
+        music.volume = 0.2
+    } else {
+        music.pause()
+        music.currentTime = 0;
+    }
+})
