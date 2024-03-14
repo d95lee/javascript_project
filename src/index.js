@@ -141,7 +141,7 @@ class Enemy {
         c.closePath()
     }
 
-    updateEnemyPos() { // note enemies still vibrate back and forth...
+    updateEnemyPos() { 
         let xDiffOffset = player.width/2 // So the enemy follows the middle of the player instead of outside the player
         let yDiffOffset = player.height/2
         
@@ -470,6 +470,7 @@ musicButton.addEventListener('click', () => {
     }
 })
 
+hardModeButton.addEventListener('click', () => {
     newGame()
     animate()
     music.play()
@@ -479,6 +480,7 @@ musicButton.addEventListener('click', () => {
     levelEle.style.display = 'block'
     social.style.display = 'block'
     social2.style.display = 'block'
+    })
 })
 
 
@@ -879,7 +881,7 @@ musicButton.addEventListener('click', () => {
         music.currentTime = 0;
     }
 })
-
+hardModeButton.addEventListener('click', () => {
     newGame()
     animate()
     music.play()
@@ -889,4 +891,5 @@ musicButton.addEventListener('click', () => {
     levelEle.style.display = 'block'
     social.style.display = 'block'
     social2.style.display = 'block'
+    })
 })
