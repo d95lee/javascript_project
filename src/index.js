@@ -891,7 +891,7 @@ musicButton.addEventListener('click', () => {
         music.currentTime = 0;
     }
 })
-hardModeButton.addEventListener('click', () => {
+easyModeButton.addEventListener('click', () => {
     newGame()
     animate()
     music.play()
