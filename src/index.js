@@ -22,19 +22,19 @@ canvas.width = 1820;
 canvas.height = 800;
 
 const playerImage = new Image();
-playerImage.src = '/assets/player/player.png'
+playerImage.src = './assets/player/player.png'
 
 const enemyImage = new Image();
-enemyImage.src = '/assets/enemy/red_zombie.png'
+enemyImage.src = './assets/enemy/red_zombie.png'
 
 const enemyImage2 = new Image();
-enemyImage2.src = '/assets/enemy/blue_zombie.png'
+enemyImage2.src = './assets/enemy/blue_zombie.png'
 
 const enemyImage3 = new Image();
-enemyImage3.src = '/assets/enemy/black_zombie.png'
+enemyImage3.src = './assets/enemy/black_zombie.png'
 
 const enemyImage4 = new Image();
-enemyImage4.src = '/assets/enemy/green_zombie.png'
+enemyImage4.src = './assets/enemy/green_zombie.png'
 
 
 hardModeButton.addEventListener('click', () => {
