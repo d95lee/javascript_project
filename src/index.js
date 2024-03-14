@@ -448,6 +448,7 @@ addEventListener('click', (e) => {
     }
 })
 
+
 restartButton.addEventListener('click', () => {
     newGame() // resets everything
     animate() // reanimates the game

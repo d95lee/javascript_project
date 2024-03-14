@@ -138,16 +138,6 @@ body {
     border-color: red;
 }
 
-/* #start {
-    font: bolder;
-    font-family: 'Zombie', sans-serif;
-    font-size: large;
-    background-color: red;
-    border-radius: 5px;
-    border-color: red;
-    font-weight: 100;
-} */
-
 .socials-container {
     position: relative;
 }
@@ -156,14 +146,14 @@ body {
     color: red;
     text-decoration: none;
     top: 5px;
-    padding: 5px;
+    padding: 10px;
     position: absolute;
-    font-size: 20px;
+    font-size: 30px;
     display: none;
 }
 
 .socials:nth-child(1) {
-    right: 20px;
+    right: 10px;
 }
 
 .socials:nth-child(2) {
@@ -190,10 +180,10 @@ body {
 }
 
 .audio-container {
-    top: 5px;
+    top: 10px;
     padding: 5px;
     position: absolute;
-    font-size: 20px;
+    left: 10px;
 }
 
 .icon:nth-child(1) {
@@ -207,4 +197,5 @@ body {
 .music-button {
     background-color: white;
     border-radius: 5px;
+    font-size: 20px;
 }
