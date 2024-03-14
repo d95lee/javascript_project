@@ -470,7 +470,7 @@ musicButton.addEventListener('click', () => {
     }
 })
 
-hardModeButton.addEventListener('click', () => {
+
     newGame()
     animate()
     music.play()
@@ -480,7 +480,7 @@ hardModeButton.addEventListener('click', () => {
     levelEle.style.display = 'block'
     social.style.display = 'block'
     social2.style.display = 'block'
-    })
+    
 })
 
 
@@ -891,7 +891,7 @@ musicButton.addEventListener('click', () => {
         music.currentTime = 0;
     }
 })
-hardModeButton.addEventListener('click', () => {
+
     newGame()
     animate()
     music.play()
@@ -901,6 +901,6 @@ hardModeButton.addEventListener('click', () => {
     levelEle.style.display = 'block'
     social.style.display = 'block'
     social2.style.display = 'block'
-    })
+
 })
 
