@@ -1,4 +1,4 @@
-const canvas = document.querySelector('canvas');
+const canvas = document.querySelector('#canvas');
 const c = canvas.getContext('2d')
 const playerShoot = document.querySelector('#playerShoot')
 const scoreboard = document.querySelector("#scoreboard")
