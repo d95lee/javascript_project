@@ -190,9 +190,9 @@ body {
     margin: 10px 7px;
 }
 
-.icon:nth-child(2) {
+/* .icon:nth-child(2) {
     margin: 0px 7px;
-}
+} */
 
 .music-button {
     background-color: white;
