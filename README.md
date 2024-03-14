@@ -1,14 +1,20 @@
 ### Background
-The game is called AI takeover. The goal of the game is to survive the apocalypse where robots have taken over the city of San Francisco. The objective is to survive for as many rounds as possible as the number of robots increases. 
-Use your ‘wasd’ keys to move around while clicking on the robots to eliminate them. 
+The game is Zombierun. The goal of the game is to survive the apocalypse where zombies have taken over the courtyard. The objective is to survive for as many levels as possible as the number of zombies increase. 
+Use your ‘wasd’ keys to move around while clicking on the zombies to eliminate them. 
+
+There are two modes: an easy and a hard mode. In easy mode, the speed and damage of the zombies are decreased while the player's rate of fire is increased. In addition, the red zombies won't shoot at you. In hard mode, the speed and damage of the zombies are increased, while the player's rate of fire are decreased. In addition, the red zombies do shoot at you.
+
+The red zombies are the slowest and will award the player with 10 points when killed. Keep in mind, in the hard mode they have the ability to shoot at players and if hit, will deduct 5 hp points from the player. The speed of the zombies increase respectively with the blue awarding 20 points, the black 30 points, and the green 50 points. 
 
 
 ### Functionality & MVPs
 Users will be able to: 
-- Aim up, down, and 360 degrees using their mouse.
+- Aim 360 degrees using the player's mouse
 - Move within the restricted boundaries using the ‘wasd’ keys
-- See their scores increase as a robot is killed
-- See the level increase along with the number of robots increase in relation to the level
+- See player's scores increase as a zombie is killed
+- See player's health decrease as they are within the bounds of the zombie
+- See player's health decrease by 5 if they are shot with a blue bullet from a zombie
+- See the level increase along with the number of zombies/speed of zombies increase in relation to the level
 
 
 ### Wireframes
@@ -16,15 +22,15 @@ Users will be able to:
 
 
 - The entire map is displayed on the screen 
-- User controls the player model and attempts to eliminate computer models
-- Score on the top right will increase as the number of computers eliminated increases
-- Round # will increase after player eliminates all the computer models in a given round
+- User controls the player model and attempts to eliminate zombies
+- Score on the top right will increase as the number of zombies eliminated increases
+- Level # will increase after player eliminates all the zombies in a given level
 
 
 ### Technologies, Libraries, APIs
 This project will be implemented with the following technologies:
-- Three.js for creating 3D objects (robots, gun)
-- Ammo.js for bullet physics
+- Audio files for the music and gun sound effects
+- Sprites images
 
 
 
@@ -39,5 +45,6 @@ This project will be implemented with the following technologies:
 
 ### Bonus Features
 - Implement ammo counter to reload 
-- Add flying computer models to increase difficulty for higher levels 
 - Add different maps for different levels
+- Create animated sprites (can also animate a bullet)
+- Mute option for bullet sounds
