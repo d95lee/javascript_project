@@ -1,5 +1,5 @@
 ### Background
-The game is Zombierun. The goal of the game is to survive the apocalypse where zombies have taken over the courtyard. The objective is to survive for as many levels as possible as the number of zombies increase. 
+The goal of Zombie Run is to survive the apocalypse where zombies have taken over the courtyard. The objective is to survive for as many levels as possible as the number of zombies increase. 
 Use your ‘wasd’ keys to move around while clicking on the zombies to eliminate them. 
 
 There are two modes: an easy and a hard mode. In easy mode, the speed and damage of the zombies are decreased while the player's rate of fire is increased. In addition, the red zombies won't shoot at you. In hard mode, the speed and damage of the zombies are increased, while the player's rate of fire are decreased. In addition, the red zombies do shoot at you.
