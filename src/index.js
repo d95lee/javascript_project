@@ -484,6 +484,16 @@ hardModeButton.addEventListener('click', () => {
 })
 
 
+musicButton.addEventListener('click', () => {
+    if (music.paused) { //music.paused returns a boolean value
+        music.play()
+        music.volume = 0.2
+    } else {
+        music.pause()
+        music.currentTime = 0;
+    }
+})
+
 easyModeButton.addEventListener('click', () => {
 
 class Player {
@@ -893,3 +903,4 @@ hardModeButton.addEventListener('click', () => {
     social2.style.display = 'block'
     })
 })
+
